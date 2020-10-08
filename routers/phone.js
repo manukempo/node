@@ -54,9 +54,20 @@ router.get('/phones/:id', async (req, res) => {
     if (!phone) {
       return res.status(404).send({ error: 'Phone Not found' });
     }
-    res.send(phone);
+
+    const currentPrices = phone.prices.find((date) =>
+      moment().isSameOrAfter(date.startingDate, 'day')
+    );
+    const currentPhoneDetails = {
+      make: phone.make,
+      model: phone.model,
+      monthlyPremium: currentPrices.monthlyPremium,
+      yearlyPremium: currentPrices.yearlyPremium,
+      excess: currentPrices.excess,
+    };
+
+    res.send(currentPhoneDetails);
   } catch (error) {
-    console.log(error);
     res.status(500).send({ error: error.message });
   }
 });
