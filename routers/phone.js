@@ -82,7 +82,14 @@ router.patch('/phones/:id', async (req, res) => {
     if (!phone) {
       return res.status(404).send({ error: 'Phone Not found' });
     }
-    updates.forEach((update) => (phone[update] = req.body[update]));
+    updates.forEach((update) => {
+      phone[update] = req.body[update];
+      if (update === 'monthlyPremium') {
+        phone.yearlyPremium = parseFloat(
+          (phone.monthlyPremium * 11).toFixed(2)
+        );
+      }
+    });
     await phone.save();
     res.send(phone);
   } catch (error) {
