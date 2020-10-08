@@ -61,6 +61,7 @@ router.get('/phones/:id', async (req, res) => {
     const currentPhoneDetails = {
       make: phone.make,
       model: phone.model,
+      storage: phone.storage,
       monthlyPremium: currentPrices.monthlyPremium,
       yearlyPremium: currentPrices.yearlyPremium,
       excess: currentPrices.excess,
