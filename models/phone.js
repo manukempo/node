@@ -26,6 +26,11 @@ const phoneSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    yearlyPremium: {
+      type: Number,
+      required: true,
+      trim: true,
+    },
     excess: {
       type: Number,
       validate: {
