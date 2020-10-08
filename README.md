@@ -2,6 +2,8 @@
 
 ## Phone Model Example
 
+- **Basic Solution**
+
 ```json
 {
   "_id": "5f7ed860c765c43254852976",
@@ -11,6 +13,31 @@
   "monthlyPremium": 9.99,
   "yearlyPremium": 109.89,
   "excess": 150
+}
+```
+
+- **Bonus Solution**
+
+```json
+{
+  "_id": "5f7f06978f042806076d2d8d",
+  "make": "LG",
+  "model": "G6",
+  "storage": "32GB",
+  "prices": [
+    {
+      "startingDate": "2020-10-09",
+      "monthlyPremium": 4.69,
+      "yearlyPremium": 51.59,
+      "excess": 80
+    },
+    {
+      "startingDate": "2020-10-08",
+      "monthlyPremium": 4.49,
+      "yearlyPremium": 49.39,
+      "excess": 75
+    }
+  ]
 }
 ```
 
