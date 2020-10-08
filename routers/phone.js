@@ -2,6 +2,7 @@ const express = require('express');
 const Phone = require('../models/phone');
 const router = new express.Router();
 
+// Create a phone (development purposes)
 router.post('/phones', async (req, res) => {
   const newPhone = { ...req.body };
   newPhone.yearlyPremium = parseFloat(
@@ -16,6 +17,7 @@ router.post('/phones', async (req, res) => {
   }
 });
 
+// Get the phones list (development purposes)
 router.get('/phones', async (req, res) => {
   try {
     const phones = await Phone.find({});
@@ -25,6 +27,7 @@ router.get('/phones', async (req, res) => {
   }
 });
 
+// Get the details of a specific phone, by ID
 router.get('/phones/:id', async (req, res) => {
   const _id = req.params.id;
   try {
@@ -35,6 +38,21 @@ router.get('/phones/:id', async (req, res) => {
     res.send(phone);
   } catch (error) {
     console.log(error);
+    res.status(500).send({ error: error.message });
+  }
+});
+
+// Delete a phone
+router.delete('/phones/:id', async (req, res) => {
+  const _id = req.params.id;
+  try {
+    const phone = await Phone.findById(_id);
+    if (!phone) {
+      return res.status(404).send({ error: 'Phone Not found' });
+    }
+    phone.deleteOne();
+    res.status(204).send();
+  } catch (error) {
     res.status(500).send({ error: error.message });
   }
 });
