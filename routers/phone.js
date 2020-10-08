@@ -1,13 +1,32 @@
 const express = require('express');
 const Phone = require('../models/phone');
 const router = new express.Router();
+const moment = require('moment');
 
 // Create a phone (development purposes)
 router.post('/phones', async (req, res) => {
-  const newPhone = { ...req.body };
-  newPhone.yearlyPremium = parseFloat(
-    (newPhone.monthlyPremium * 11).toFixed(2)
-  );
+  const { make, model, storage, monthlyPremium, excess } = req.body;
+
+  if (!make || !model || !storage || !monthlyPremium || !excess) {
+    return res.status(400).send({
+      error: 'make, model, monthlyPremium and excess must be provided',
+    });
+  }
+  const yearlyPremium = parseFloat((monthlyPremium * 11).toFixed(2));
+  const today = moment().format('YYYY-MM-DD');
+  const newPhone = {
+    make,
+    model,
+    storage,
+    prices: [
+      {
+        startingDate: today,
+        monthlyPremium,
+        yearlyPremium,
+        excess,
+      },
+    ],
+  };
   const phone = new Phone(newPhone);
   try {
     await phone.save(phone);
