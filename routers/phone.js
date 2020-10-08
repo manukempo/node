@@ -57,4 +57,37 @@ router.delete('/phones/:id', async (req, res) => {
   }
 });
 
+// Update phone details
+router.patch('/phones/:id', async (req, res) => {
+  const _id = req.params.id;
+  // error handling if the user tries to update a non existing field
+  const updates = Object.keys(req.body);
+  const allowedUpdates = [
+    'make',
+    'model',
+    'storage',
+    'monthlyPremium',
+    'excess',
+  ];
+  const isValidOperation = updates.every((update) =>
+    allowedUpdates.includes(update)
+  );
+
+  if (!isValidOperation) {
+    return res.status(400).send({ error: 'Invalid updates!' });
+  }
+
+  try {
+    const phone = await Phone.findById(_id);
+    if (!phone) {
+      return res.status(404).send({ error: 'Phone Not found' });
+    }
+    updates.forEach((update) => (phone[update] = req.body[update]));
+    await phone.save();
+    res.send(phone);
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+});
+
 module.exports = router;
