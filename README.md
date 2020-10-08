@@ -15,6 +15,7 @@
 ```
 
 - The POST and the GET all phones have been creating to make the development and testing easier.
+- **IMPORTANT**: The bonus solution will change the model, so please clear the phones collection in the DB before you check out branches (_bonus-solution_).
 
 ## Node Vagrant Server
 
