@@ -25,4 +25,18 @@ router.get('/phones', async (req, res) => {
   }
 });
 
+router.get('/phones/:id', async (req, res) => {
+  const _id = req.params.id;
+  try {
+    const phone = await Phone.findById(_id);
+    if (!phone) {
+      return res.status(404).send({ error: 'Phone Not found' });
+    }
+    res.send(phone);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: error.message });
+  }
+});
+
 module.exports = router;
