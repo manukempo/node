@@ -73,7 +73,6 @@
   ])
   ```
 
-```
 ## Node Vagrant Server
 
 Base node.js app repository
@@ -124,7 +123,5 @@ Mysql:
 127.0.0.1:3306
 user: root
 pwd: root
-
-```
 
 ```
