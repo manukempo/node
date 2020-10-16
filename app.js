@@ -1,9 +1,18 @@
-const express = require('express')
-require('dotenv').config()
+const express = require('express');
+require('dotenv').config();
+// Connect the DB
+require('./db/mongoose');
 
-const app = express()
-const port = process.env.NODE_PORT
+const app = express();
+const port = process.env.NODE_PORT;
+const routerPhone = require('./routers/phone');
 
-app.get('/', (req, res) => res.send('Hello World - So-sure-itw !'))
+app.use(express.json());
+// Routers
+app.use(routerPhone);
 
-app.listen(port, () => console.log(`Example app listening at http://localhost:1337 form the host or http://localhost:${port} from vagrant`))
+app.listen(port, () =>
+  console.log(
+    `Example app listening at http://localhost:1337 form the host or http://localhost:${port} from vagrant`
+  )
+);
